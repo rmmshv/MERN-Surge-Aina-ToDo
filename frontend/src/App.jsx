@@ -85,10 +85,10 @@ function App() {
 
         <form
           onSubmit={addTodo}
-          className="flex items-center gap-2 border border-gray-200 p-3 rounded-xl bg-gray-50"
+          className="flex items-center gap-2 border border-gray-300 p-3 rounded-xl bg-white-50"
         >
           <input
-            className="flex-1 outline-none px-4 py-2 text-gray-700 placeholder-gray-400 rounded-full bg-white border border-gray-100 focus:ring-2 focus:ring-gray-300 transition"
+            className="flex-1 outline-none px-4 py-2 text-gray-700 placeholder-gray-400 rounded-full bg-white border border-gray-50 focus:ring-1 focus:ring-gray-300 transition"
             type="text"
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
