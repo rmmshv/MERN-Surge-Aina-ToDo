@@ -37,7 +37,7 @@ Visit the website [here](https://mern-surge-aina-to-8jtazdih7-rmmshvs-projects.v
 
 ## Getting Started
 
-**Go to https://mern-surge-aina-to-8jtazdih7-rmmshvs-projects.vercel.app/ **
+Go to https://mern-surge-aina-to-8jtazdih7-rmmshvs-projects.vercel.app/
 
 OR
 

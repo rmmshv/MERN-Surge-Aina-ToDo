@@ -1,14 +1,13 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineDone } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
-
 import axios from "axios";
+
 function App() {
   const API_URL = import.meta.env.VITE_API_URL;
-  
+
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [editingTodo, setEditingTodo] = useState(null);
@@ -28,8 +27,7 @@ function App() {
 
   const fetchTodos = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/todos`)
-      console.log(response.data);
+      const response = await axios.get(`${API_URL}/api/todos`);
       setTodos(response.data);
     } catch (error) {
       console.log("Error fetching todos:", error);
@@ -74,24 +72,23 @@ function App() {
       });
       setTodos(todos.map((t) => (t._id === id ? response.data : t)));
     } catch (error) {
-      console.log("Error toggline todo:", error);
+      console.log("Error toggling todo:", error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center"
-          style={{ color: "#141414" }}>
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
           Surge Aina To Do App
         </h1>
 
         <form
           onSubmit={addTodo}
-          className="flex items-center gap-2 shadow-sm border border-gray-200 p-2 rounded-lg"
+          className="flex items-center gap-2 border border-gray-200 p-3 rounded-xl bg-gray-50"
         >
           <input
-            className="flex-1 outline-none px-3 py-2 text-gray-700 placeholder-gray-400"
+            className="flex-1 outline-none px-4 py-2 text-gray-700 placeholder-gray-400 rounded-full bg-white border border-gray-100 focus:ring-2 focus:ring-gray-300 transition"
             type="text"
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
@@ -100,23 +97,32 @@ function App() {
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium cursor-pointer"
-          
+            className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
           >
-            Add Task
+            Add
           </button>
         </form>
-        <div className="mt-4">
+
+        <div className="mt-8">
           {todos.length === 0 ? (
-            <div></div>
+            <div className="text-center text-gray-400 italic py-8">
+              No tasks yet. Add your first one!
+            </div>
           ) : (
             <div className="flex flex-col gap-4">
               {todos.map((todo) => (
-                <div key={todo._id}>
+                <div
+                  key={todo._id}
+                  className={`rounded-xl px-4 py-3 flex items-center justify-between shadow-sm border transition-colors ${
+                    todo.completed
+                      ? "bg-green-50 border-green-100"
+                      : "bg-white border-gray-200"
+                  }`}
+                >
                   {editingTodo === todo._id ? (
-                    <div className="flex items-center gap-x-3">
+                    <div className="flex items-center gap-x-3 w-full">
                       <input
-                        className="flex-1 p-3 border rounded-lg border-gray-200 outline-none focus:ring-2 focus:ring-blue-300 text-gray-700 shadow-inner"
+                        className="flex-1 p-2 border rounded-lg border-gray-200 outline-none focus:ring-2 focus:ring-blue-300 text-gray-700 shadow-inner"
                         type="text"
                         value={editedText}
                         onChange={(e) => setEditedText(e.target.value)}
@@ -124,54 +130,61 @@ function App() {
                       <div className="flex gap-x-2">
                         <button
                           onClick={() => saveEdit(todo._id)}
-                          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 cursor-pointer"
+                          className="px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 cursor-pointer"
+                          title="Save"
                         >
                           <MdOutlineDone />
                         </button>
                         <button
-                          className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer"
+                          className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer"
                           onClick={() => setEditingTodo(null)}
+                          title="Cancel"
                         >
                           <IoClose />
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-x-4 overflow-hidden">
-                          <button
-                            onClick={() => toggleTodo(todo._id)}
-                            className={`flex-shrink-0 h-6 w-6 border rounded-full flex items-center justify-center ${
-                              todo.completed
-                                ? "bg-green-500 border-green-500"
-                                : "border-gray-300 hover:border-blue-400"
-                            }`}
-                          >
-                            {todo.completed && <MdOutlineDone />}
-                          </button>
-                          <span
-                            className={`text-gray-800 truncate font-medium ${todo.completed ? "line-through text-gray-400" : ""}`}
-                          >
-                            {todo.text}
-                          </span>
-                        </div>
-                        <div className="flex gap-x-2">
-                          <button
-                            className="p-2 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 duration-200"
-                            onClick={() => startEditing(todo)}
-                          >
-                            <MdModeEditOutline />
-                          </button>
-                          <button
-                            onClick={() => deleteTodo(todo._id)}
-                            className="p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-red-50 duration-200"
-                          >
-                            <FaTrash />
-                          </button>
-                        </div>
+                    <>
+                      <div className="flex items-center gap-x-4 overflow-hidden flex-1">
+                        <button
+                          onClick={() => toggleTodo(todo._id)}
+                          className={`flex-shrink-0 h-7 w-7 border-2 rounded-full flex items-center justify-center transition ${
+                            todo.completed
+                              ? "bg-green-400 border-green-400 text-black"
+                              : "border-gray-300 hover:border-gray-400"
+                          }`}
+                          title="Toggle complete"
+                        >
+                          {todo.completed && <MdOutlineDone />}
+                        </button>
+                        <span
+                          className={`truncate font-medium text-lg ${
+                            todo.completed
+                              ? "line-through text-gray-400"
+                              : "text-gray-800"
+                          }`}
+                        >
+                          {todo.text}
+                        </span>
                       </div>
-                    </div>
+                      <div className="flex gap-x-2">
+                        <button
+                          className="p-2 text-blue-600 hover:text-blue-800 rounded-lg hover:bg-blue-100 duration-200"
+                          onClick={() => startEditing(todo)}
+                          title="Edit"
+                        >
+                          <MdModeEditOutline />
+                        </button>
+                        <button
+                          onClick={() => deleteTodo(todo._id)}
+                          className="p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-red-100 duration-200"
+                          title="Delete"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </>
                   )}
                 </div>
               ))}
