@@ -7,6 +7,8 @@ import { FaTrash } from "react-icons/fa6";
 
 import axios from "axios";
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [editingTodo, setEditingTodo] = useState(null);
@@ -67,7 +69,7 @@ function App() {
   const toggleTodo = async (id) => {
     try {
       const todo = todos.find((t) => t._id === id);
-      const response = await axios.patch(`/api/todos/${id}`, {
+      const response = await axios.patch(`${API_URL}/api/todos/${id}`, {
         completed: !todo.completed,
       });
       setTodos(todos.map((t) => (t._id === id ? response.data : t)));
