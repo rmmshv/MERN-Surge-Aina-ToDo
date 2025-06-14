@@ -7,45 +7,49 @@ Visit the website [here](https://mern-surge-aina-to-8jtazdih7-rmmshvs-projects.v
 
 ## Features
 
-- Add, edit, complete, and delete tasks
-- Responsive and clean user interface
-- Real-time updates without page reloads
-- Persistent storage using MongoDB Atlas
+- add, edit, complete, and delete tasks
+- responsive and clean user interface
+- real-time updates without page reloads
+- stored on MongoDB Atlas
+
+## Test cases
+
+**Backend** 
+ - retrieving all todos (GET /api/todos)
+ - creating a new todo (POST /api/todos)
+ - (If implemented) updating and deleting todos
+
+**Frontend**
+ - rendering the main app and UI elements
+ - adding a new todo item through the form
+ - (If implemented) marking todos as complete, editing, and deleting tasks
+
 
 ## Tech stack
 
 **Frontend:**
-- [React](https://react.dev/) 
-- [Vite](https://vitejs.dev/) 
-- [Tailwind CSS](https://tailwindcss.com/) 
-- [Axios](https://axios-http.com/) 
-- [React Icons](https://react-icons.github.io/react-icons/)
+[React](https://react.dev/), [Vite](https://vitejs.dev/), [Tailwind CSS](https://tailwindcss.com/), [Axios](https://axios-http.com/), [React Icons](https://react-icons.github.io/react-icons/)
+
 **Backend:**
 
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) 
-- [Mongoose](https://mongoosejs.com/)
-- [dotenv](https://www.npmjs.com/package/dotenv) 
-- [CORS](https://www.npmjs.com/package/cors) 
+[Node.js](https://nodejs.org/), [Express](https://expressjs.com/), [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), [Mongoose](https://mongoosejs.com/), [dotenv](https://www.npmjs.com/package/dotenv) 
 
-**Testing:**
-- [Jest](https://jestjs.io/) 
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
 ## Getting Started
 
 **Go to https://mern-surge-aina-to-8jtazdih7-rmmshvs-projects.vercel.app/ **
 
-1. **Clone the repository** and install dependencies for both frontend and backend.
-2. **Set up your `.env` file** in the backend with your MongoDB Atlas connection string.
-3. **Run the backend server:**
+OR
+
+1. clone the repository and install dependencies for both frontend and backend.
+2. set up your `.env` file in the backend with your MongoDB Atlas connection string.
+3. run the backend server:
    ```sh
    npm start
    ```
-4. **Run the frontend development server:**
+4. run the frontend development server:
    ```sh
    npm run dev
    ```
-5. Open [http://localhost:5173](http://localhost:5173) in your browser.
+5. open localhost in your browser
 
