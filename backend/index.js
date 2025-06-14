@@ -24,11 +24,15 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 
-// only start the server if not in test mode
+// connect to DB before starting the server
 if (process.env.NODE_ENV !== "test") {
-    connectDB();
-    app.listen(PORT, () => {
-        console.log(`Server started at http://localhost:${PORT}`);
+    connectDB().then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server started at http://localhost:${PORT}`);
+        });
+    }).catch((err) => {
+        console.error("Failed to connect to MongoDB:", err);
+        process.exit(1);
     });
 }
 
